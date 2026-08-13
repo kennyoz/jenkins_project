@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build Docker image') {
             steps {
-                sh 'docker build -t fastapi-project .'
+                sh '/usr/local/bin/docker build -t fastapi-project .'
             }
         }
     }
