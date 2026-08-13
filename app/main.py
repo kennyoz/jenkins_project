@@ -17,7 +17,7 @@ class UserResponse(BaseModel):
 
 @app.get("/health")
 def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "healthy"}
 
 
 @app.post("/users", response_model=UserResponse)
