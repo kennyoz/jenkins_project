@@ -15,7 +15,10 @@ pipeline {
 
         stage('Run application') {
             steps {
-                sh 'docker run -d --name ${CONTAINER_NAME} -p 8000:8000 fastapi-project'
+                sh '''
+                    docker rm -f ${CONTAINER_NAME} 2>/dev/null || true
+                    docker run -d --name ${CONTAINER_NAME} -p 8000:8000 fastapi-project
+                '''
             }
         }
 
@@ -54,9 +57,13 @@ pipeline {
 
     post {
         always {
-            allure([
-                results: [[path: 'tests/allure-results']]
-            ])
+            script {
+                if (fileExists('tests/allure-results')) {
+                    allure([
+                        results: [[path: 'tests/allure-results']]
+                    ])
+                }
+            }
 
             sh 'docker stop ${CONTAINER_NAME} || true'
             sh 'docker rm ${CONTAINER_NAME} || true'
