@@ -19,6 +19,10 @@ class UserResponse(BaseModel):
 def health_check() -> dict[str, str]:
     return {"status": "healthy"}
 
+@app.get("/varm")
+def heal_check() -> dict[str, str]:
+    return {"status": "healthy"}
+
 
 @app.post("/users", response_model=UserResponse)
 def create_user(user: UserCreate) -> UserResponse:
