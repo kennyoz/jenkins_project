@@ -20,6 +20,9 @@ def health_check() -> dict[str, str]:
     return {"status": "healthy"}
 
 
+
+
+
 @app.post("/users", response_model=UserResponse)
 def create_user(user: UserCreate) -> UserResponse:
     return UserResponse(
