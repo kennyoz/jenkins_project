@@ -46,7 +46,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 dir('tests') {
-                    sh '.venv/bin/pytest'
+                    sh '.venv/bin/pytest --alluredir=allure-results'
                 }
             }
         }
