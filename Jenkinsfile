@@ -50,18 +50,14 @@ pipeline {
                 }
             }
         }
-
-        stage('Generate Allure report') {
-            steps {
-                dir('tests') {
-                    sh 'allure generate allure-results -o allure-report --clean'
-                }
-            }
-        }
     }
 
     post {
         always {
+            allure([
+                results: [[path: 'tests/allure-results']]
+            ])
+
             sh 'docker stop ${CONTAINER_NAME} || true'
             sh 'docker rm ${CONTAINER_NAME} || true'
         }
