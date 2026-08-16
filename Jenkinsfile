@@ -50,6 +50,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Generate Allure report') {
+            steps {
+                dir('tests') {
+                    sh 'allure generate allure-results -o allure-report --clean'
+                }
+            }
+        }
     }
 
     post {
